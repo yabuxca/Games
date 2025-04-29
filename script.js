@@ -1,5 +1,5 @@
 const apiKey = 'DEIN_STEAM_API_KEY';  // Dein Steam API-Key hier einfügen
-const gameIds = ['440', '570', '730']; // IDs von Spielen, die du abrufen möchtest (z.B. Team Fortress 2, Dota 2, CS:GO)
+let gameIds = ['440', '570', '730']; // IDs von Spielen, die du abrufen möchtest (z.B. Team Fortress 2, Dota 2, CS:GO)
 
 // Funktion, um die Spielinformationen von Steam zu bekommen
 async function getGameDetails(appId) {
@@ -24,6 +24,8 @@ async function getGameDetails(appId) {
 async function displayGames() {
   const gameListContainer = document.getElementById('games');
   
+  gameListContainer.innerHTML = ''; // Leeren der Liste bevor neue Spiele geladen werden
+  
   for (let gameId of gameIds) {
     const gameDetails = await getGameDetails(gameId);
     
@@ -41,5 +43,38 @@ async function displayGames() {
   }
 }
 
-// Starte das Laden der Spiele
+// Funktion zum Hinzufügen eines Spiels über den Steam-Link
+async function addGameByLink() {
+  const gameLink = document.getElementById('game-link').value.trim();
+  const match = gameLink.match(/\/app\/(\d+)/); // Suche nach der Steam-App-ID im Link
+  
+  if (match) {
+    const appId = match[1]; // Extrahiere die App-ID
+    const newGameDetails = await getGameDetails(appId);
+    
+    if (newGameDetails) {
+      gameIds.push(appId); // Neue App-ID zur Liste der Spiele hinzufügen
+      displayGames(); // Spiele neu laden
+      
+      // Popup schließen
+      document.getElementById('add-game-popup').style.display = 'none';
+      document.getElementById('game-link').value = ''; // Eingabefeld leeren
+    }
+  } else {
+    alert('Ungültiger Steam-Link!');
+  }
+}
+
+// Event-Listener für Button und Popup
+document.getElementById('add-game-btn').addEventListener('click', () => {
+  document.getElementById('add-game-popup').style.display = 'flex';
+});
+
+document.getElementById('close-popup').addEventListener('click', () => {
+  document.getElementById('add-game-popup').style.display = 'none';
+});
+
+document.getElementById('confirm-add').addEventListener('click', addGameByLink);
+
+// Spiele beim Laden der Seite anzeigen
 displayGames();
