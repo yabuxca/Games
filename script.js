@@ -1,4 +1,4 @@
-const apiKey = '2C484831AB11E82D5034D1343B4CE620';  // Dein Steam API-Key hier einfügen
+const apiKey = '689B101A8CE90542E3EBF07DBD46D786';  // Dein Steam API-Key hier einfügen
 let gameIds = ['440', '570', '730']; // IDs von Spielen, die du abrufen möchtest (z.B. Team Fortress 2, Dota 2, CS:GO)
 
 // Funktion, um die Spielinformationen von Steam zu bekommen
