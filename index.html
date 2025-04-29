@@ -4,36 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Showcase</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <h1>Game Showcase</h1>
-      </div>
-      <button id="add-game-btn" class="btn">Add Game</button>
-    </header>
-
-    <section id="games" class="game-list">
-      <!-- Hier werden die Spiele dynamisch angezeigt -->
-    </section>
-
-    <!-- Popup für das Hinzufügen eines Spiels -->
-    <div id="add-game-popup" class="popup">
-      <div class="popup-content">
-        <h2>Spiel hinzufügen</h2>
-        <label for="game-link">Steam-Link des Spiels:</label>
-        <input type="text" id="game-link" placeholder="Steam Link (z.B. https://store.steampowered.com/app/730)" />
-        <button id="confirm-add" class="btn">Add Game</button>
-        <button id="close-popup" class="btn">Abbrechen</button>
-      </div>
+    <div id="game-list-container">
+      <h1>Game Showcase</h1>
+      <div id="games"></div>
+      <button id="add-game-btn">Add Game</button>
     </div>
 
-    <footer>
-      <p>&copy; 2025 Game Showcase</p>
-    </footer>
+    <!-- Popup für Spiel hinzufügen -->
+    <div id="add-game-popup" style="display:none;">
+      <div id="popup-content">
+        <span id="close-popup">&times;</span>
+        <h2>Füge ein Spiel hinzu</h2>
+        <input type="text" id="game-link" placeholder="Füge den Steam-Link ein" />
+        <button id="confirm-add">Add Game</button>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
 </html>
+
 
