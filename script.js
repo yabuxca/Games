@@ -1,114 +1,89 @@
-const apiKey = '689B101A8CE90542E3EBF07DBD46D786';  // Dein Steam API-Key
-let gameIds = ['440', '570', '730']; // IDs von Spielen, die du abrufen möchtest (z.B. Team Fortress 2, Dota 2, CS:GO)
+const apiKey = '689B101A8CE90542E3EBF07DBD46D786';
+let gameIds = ['440', '570', '730'];
 
-// Beispielspiel hinzufügen, das vor echten Spielen angezeigt wird
 const exampleGame = {
   name: "TITEL",
   description: "Beschreibung hier",
-  image: "EMPTY", // Platzhalter für das Bild
+  image: "EMPTY",
   link: "#"
 };
 
-// Funktion, um die Spielinformationen von Steam zu bekommen
 async function getGameDetails(appId) {
-  const url = `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${apiKey}&appid=${appId}`;
-  const response = await fetch(url);
-  
-  if (!response.ok) {
-    console.error('Fehler bei der Steam API Anfrage:', response.statusText);
-    return null;
-  }
+  try {
+    const url = `https://store.steampowered.com/api/appdetails?appids=${appId}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-  const data = await response.json();
-  console.log('Daten von der Steam API:', data); // Hier wird die Antwort von der API geloggt
-
-  if (data && data.game) {
-    const game = data.game;
-    return {
-      name: game.gameName,
-      description: game.gameDescription,
-      image: `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/header.jpg`,
-      link: `https://store.steampowered.com/app/${appId}`,
-    };
-  } else {
-    console.error('Kein Spiel gefunden für App-ID:', appId);
-    return null;
+    if (data[appId].success) {
+      const game = data[appId].data;
+      return {
+        name: game.name,
+        description: game.short_description,
+        image: game.header_image,
+        link: `https://store.steampowered.com/app/${appId}`
+      };
+    }
+  } catch (err) {
+    console.error('API Fehler:', err);
   }
+  return null;
 }
 
-// Dynamisch Spiele anzeigen
 async function displayGames() {
-  const gameListContainer = document.getElementById('games');
-  
-  gameListContainer.innerHTML = ''; // Leeren der Liste bevor neue Spiele geladen werden
+  const container = document.getElementById('games');
+  container.innerHTML = '';
 
-  // Füge das Beispielspiel immer als erstes hinzu
-  const exampleGameItem = document.createElement('article');
-  exampleGameItem.classList.add('game-item');
-  exampleGameItem.innerHTML = `
-    <div class="game-image">${exampleGame.image}</div>
+  const exampleEl = document.createElement('div');
+  exampleEl.classList.add('game-item');
+  exampleEl.innerHTML = `
+    <div style="background-color:#444; height: 180px; display: flex; align-items: center; justify-content: center;">
+      <span>EMPTY</span>
+    </div>
     <h2>${exampleGame.name}</h2>
     <p>${exampleGame.description}</p>
     <a href="${exampleGame.link}" class="play-link">Jetzt spielen</a>
   `;
-  gameListContainer.appendChild(exampleGameItem);
+  container.appendChild(exampleEl);
 
-  // Lade und zeige echte Spiele an
-  for (let gameId of gameIds) {
-    const gameDetails = await getGameDetails(gameId);
-    
-    if (gameDetails) {
-      const gameItem = document.createElement('article');
-      gameItem.classList.add('game-item');
-      gameItem.innerHTML = `
-        <img src="${gameDetails.image}" alt="${gameDetails.name}" />
-        <h2>${gameDetails.name}</h2>
-        <p>${gameDetails.description}</p>
-        <a href="${gameDetails.link}" class="play-link" target="_blank">Jetzt spielen</a>
+  for (const id of gameIds) {
+    const game = await getGameDetails(id);
+    if (game) {
+      const el = document.createElement('div');
+      el.className = 'game-item';
+      el.innerHTML = `
+        <img src="${game.image}" alt="${game.name}">
+        <h2>${game.name}</h2>
+        <p>${game.description}</p>
+        <a href="${game.link}" class="play-link" target="_blank">Jetzt spielen</a>
       `;
-      gameListContainer.appendChild(gameItem);
+      container.appendChild(el);
     }
   }
 }
 
-// Funktion zum Hinzufügen eines Spiels über den Steam-Link
 async function addGameByLink() {
-  const gameLink = document.getElementById('game-link').value.trim();
-  console.log('Eingegebener Steam-Link:', gameLink); // Log für den eingegebenen Link
-
-  const match = gameLink.match(/\/app\/(\d+)/); // Suche nach der Steam-App-ID im Link
-  console.log('App-ID gefunden:', match); // Log für das extrahierte App-ID
-
+  const input = document.getElementById('game-link').value.trim();
+  const match = input.match(/\/app\/(\d+)/);
   if (match) {
-    const appId = match[1]; // Extrahiere die App-ID
-    console.log('Verarbeitete App-ID:', appId); // Log für die verarbeitete App-ID
-    
-    const newGameDetails = await getGameDetails(appId);
-    if (newGameDetails) {
-      console.log('Neues Spiel hinzugefügt:', newGameDetails); // Log für das hinzugefügte Spiel
-      gameIds.push(appId); // Neue App-ID zur Liste der Spiele hinzufügen
-      displayGames(); // Spiele neu laden
-      
-      // Popup schließen
-      document.getElementById('add-game-popup').style.display = 'none';
-      document.getElementById('game-link').value = ''; // Eingabefeld leeren
+    const appId = match[1];
+    if (!gameIds.includes(appId)) {
+      gameIds.push(appId);
+      await displayGames();
     }
+    document.getElementById('add-game-popup').style.display = 'none';
+    document.getElementById('game-link').value = '';
   } else {
-    console.error('Ungültiger Steam-Link!'); // Fehler-Log für ungültigen Link
     alert('Ungültiger Steam-Link!');
   }
 }
 
-// Event-Listener für Button und Popup
+// Event-Handling
 document.getElementById('add-game-btn').addEventListener('click', () => {
   document.getElementById('add-game-popup').style.display = 'flex';
 });
-
 document.getElementById('close-popup').addEventListener('click', () => {
   document.getElementById('add-game-popup').style.display = 'none';
 });
-
 document.getElementById('confirm-add').addEventListener('click', addGameByLink);
 
-// Spiele beim Laden der Seite anzeigen
 displayGames();
