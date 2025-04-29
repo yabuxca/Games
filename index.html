@@ -1,84 +1,39 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Spiele Showcase</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Header mit Navigation -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Showcase</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <h1>Online Spiele Showcase</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#games">Spiele</a></li>
-                <li><a href="#about">Über uns</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-            </ul>
-        </nav>
+      <h1>Willkommen zum Game Showcase</h1>
+      <p>Entdecke die besten Online-Spiele!</p>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <h2>Die besten Online-Spiele warten auf dich!</h2>
-        <p>Entdecke spannende, unterhaltsame und fesselnde Online-Spiele.</p>
-    </section>
-
-    <!-- Spiele Showcase -->
-    <section id="games" class="games-showcase">
-        <h2>Unsere Top-Spiele</h2>
-        <div class="game">
-            <img src="game1.jpg" alt="Spiel 1">
-            <h3>Spiel 1</h3>
-            <p>Ein aufregendes Abenteuer-Spiel, das du nicht verpassen solltest!</p>
-            <a href="#">Mehr erfahren</a>
-        </div>
-        <div class="game">
-            <img src="game2.jpg" alt="Spiel 2">
-            <h3>Spiel 2</h3>
-            <p>Spiele, die dich stundenlang fesseln werden. Teste es jetzt!</p>
-            <a href="#">Mehr erfahren</a>
-        </div>
-        <div class="game">
-            <img src="game3.jpg" alt="Spiel 3">
-            <h3>Spiel 3</h3>
-            <p>Erlebe die besten Multiplayer-Spiele und fordere deine Freunde heraus!</p>
-            <a href="#">Mehr erfahren</a>
-        </div>
-    </section>
-
-    <!-- Über uns -->
-    <section id="about">
-        <h2>Über uns</h2>
-        <p>Wir sind leidenschaftliche Gamer und haben diese Seite ins Leben gerufen, um dir die besten Online-Spiele vorzustellen.</p>
-    </section>
-
-    <!-- Kontakt -->
-    <section id="contact">
-        <h2>Kontakt</h2>
-        <p>Hast du Fragen? Kontaktiere uns!</p>
-        <form action="#" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">E-Mail:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="message">Nachricht:</label>
-            <textarea id="message" name="message" required></textarea>
-            
-            <button type="submit">Absenden</button>
-        </form>
+    <section class="game-list">
+      <article class="game-item">
+        <h2>Spiel 1</h2>
+        <p>Beschreibung des Spiels 1...</p>
+        <a href="#" class="play-link">Jetzt spielen</a>
+      </article>
+      <article class="game-item">
+        <h2>Spiel 2</h2>
+        <p>Beschreibung des Spiels 2...</p>
+        <a href="#" class="play-link">Jetzt spielen</a>
+      </article>
+      <article class="game-item">
+        <h2>Spiel 3</h2>
+        <p>Beschreibung des Spiels 3...</p>
+        <a href="#" class="play-link">Jetzt spielen</a>
+      </article>
     </section>
 
     <footer>
-        <p>&copy; 2025 Online Spiele Showcase</p>
+      <p>&copy; 2025 Game Showcase</p>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
