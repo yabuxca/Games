@@ -5,30 +5,50 @@ body {
   color: white;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
+/* Header mit Logo und Navigation */
 header {
-  text-align: center;
-  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
   background-color: #1e1e1e;
 }
 
-h1 {
-  font-size: 2.5rem;
+header .logo h1 {
+  font-size: 2rem;
 }
 
-p {
-  font-size: 1.2rem;
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
 }
 
+header nav ul li {
+  font-size: 1rem;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+  color: #00bfae;
+}
+
+/* Spiele Liste */
 .game-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   padding: 2rem;
+  margin-top: 2rem;
 }
 
 .game-item {
@@ -36,10 +56,26 @@ p {
   padding: 1.5rem;
   border-radius: 10px;
   text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.game-item:hover {
+  transform: scale(1.05);
+}
+
+.game-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 .game-item h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  margin: 1rem 0;
+}
+
+.game-item p {
+  font-size: 1rem;
 }
 
 .play-link {
@@ -48,8 +84,18 @@ p {
   font-size: 1.1rem;
   margin-top: 10px;
   display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 2px solid #00bfae;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
+.play-link:hover {
+  background-color: #00bfae;
+  color: black;
+}
+
+/* Footer */
 footer {
   margin-top: 2rem;
   background-color: #1e1e1e;
