@@ -1,83 +1,128 @@
-const apiKey = '689B101A8CE90542E3EBF07DBD46D786';  // Dein Steam API-Key
-let gameIds = ['440', '570', '730']; // IDs von Spielen, die du abrufen möchtest (z.B. Team Fortress 2, Dota 2, CS:GO)
-
-// Beispielspiel hinzufügen, das vor echten Spielen angezeigt wird
-const exampleGame = {
-  name: "TITEL",
-  description: "Beschreibung hier",
-  image: "EMPTY", // Platzhalter für das Bild
-  link: "#"
-};
-
-// Funktion, um die Spielinformationen von Steam zu bekommen
-async function getGameDetails(appId) {
-  const url = `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${apiKey}&appid=${appId}`;
-  const response = await fetch(url);
-  
-  if (!response.ok) {
-    console.error('Fehler bei der Steam API Anfrage:', response.statusText);
-    return null;
-  }
-
-  const data = await response.json();
-  console.log('Daten von der Steam API:', data); // Hier wird die Antwort von der API geloggt
-
-  if (data && data.game) {
-    const game = data.game;
-    return {
-      name: game.gameName,
-      description: game.gameDescription,
-      image: `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/header.jpg`,
-      link: `https://store.steampowered.com/app/${appId}`,
-    };
-  } else {
-    console.error('Kein Spiel gefunden für App-ID:', appId);
-    return null;
-  }
+/* Grundlegendes Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: white;
 }
 
-// Dynamisch Spiele anzeigen
-async function displayGames() {
-  const gameListContainer = document.getElementById('games');
-  
-  gameListContainer.innerHTML = ''; // Leeren der Liste bevor neue Spiele geladen werden
-
-  // Füge das Beispielspiel immer als erstes hinzu
-  const exampleGameItem = document.createElement('article');
-  exampleGameItem.classList.add('game-item');
-  exampleGameItem.innerHTML = `
-    <div class="game-image">${exampleGame.image}</div>
-    <h2>${exampleGame.name}</h2>
-    <p>${exampleGame.description}</p>
-    <a href="${exampleGame.link}" class="play-link">Jetzt spielen</a>
-  `;
-  gameListContainer.appendChild(exampleGameItem);
-
-  // Lade und zeige echte Spiele an
-  for (let gameId of gameIds) {
-    const gameDetails = await getGameDetails(gameId);
-    
-    if (gameDetails) {
-      const gameItem = document.createElement('article');
-      gameItem.classList.add('game-item');
-      gameItem.innerHTML = `
-        <img src="${gameDetails.image}" alt="${gameDetails.name}" />
-        <h2>${gameDetails.name}</h2>
-        <p>${gameDetails.description}</p>
-        <a href="${gameDetails.link}" class="play-link" target="_blank">Jetzt spielen</a>
-      `;
-      gameListContainer.appendChild(gameItem);
-    }
-  }
+header {
+  background-color: #1f1f1f;
+  padding: 20px;
+  text-align: center;
 }
 
-// Funktion zum Hinzufügen eines Spiels über den Steam-Link
-async function addGameByLink() {
-  const gameLink = document.getElementById('game-link').value.trim();
-  console.log('Eingegebener Steam-Link:', gameLink); // Log für den eingegebenen Link
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
 
-  const match = gameLink.match(/\/app\/(\d+)/); // Suche nach der Steam-App-ID im Link
-  console.log('App-ID gefunden:', match); // Log für das extrahierte App-ID
+#add-game-btn {
+  background-color: #ff5c57;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
-  if (match
+#add-game-btn:hover {
+  background-color: #e54b48;
+}
 
+/* Spielartikel */
+#games {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.game-item {
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.game-item img {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #333;
+}
+
+.game-item h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.game-item p {
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.play-link {
+  color: #ff5c57;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: #2b2b2b;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #444;
+  border: none;
+  color: white;
+}
+
+.popup-content button {
+  background-color: #ff5c57;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.popup-content button:hover {
+  background-color: #e54b48;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ff5c57;
+}
