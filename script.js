@@ -1,4 +1,2 @@
-// Einfache Interaktivität (z.B. Alert beim Laden der Seite)
-window.onload = function() {
-    alert("Willkommen auf meiner Website!");
-};
+// Hier kannst du interaktive Funktionen hinzufügen
+console.log("Willkommen im Game Showcase!");
