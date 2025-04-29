@@ -1,12 +1,19 @@
-const apiKey = '689B101A8CE90542E3EBF07DBD46D786';  // Dein Steam API-Key hier einfügen
+const apiKey = '689B101A8CE90542E3EBF07DBD46D786';  // Dein Steam API-Key
 let gameIds = ['440', '570', '730']; // IDs von Spielen, die du abrufen möchtest (z.B. Team Fortress 2, Dota 2, CS:GO)
 
 // Funktion, um die Spielinformationen von Steam zu bekommen
 async function getGameDetails(appId) {
   const url = `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${apiKey}&appid=${appId}`;
   const response = await fetch(url);
-  const data = await response.json();
   
+  if (!response.ok) {
+    console.error('Fehler bei der Steam API Anfrage:', response.statusText);
+    return null;
+  }
+
+  const data = await response.json();
+  console.log('Daten von der Steam API:', data); // Hier wird die Antwort von der API geloggt
+
   if (data && data.game) {
     const game = data.game;
     return {
@@ -16,6 +23,7 @@ async function getGameDetails(appId) {
       link: `https://store.steampowered.com/app/${appId}`,
     };
   } else {
+    console.error('Kein Spiel gefunden für App-ID:', appId);
     return null;
   }
 }
@@ -46,13 +54,18 @@ async function displayGames() {
 // Funktion zum Hinzufügen eines Spiels über den Steam-Link
 async function addGameByLink() {
   const gameLink = document.getElementById('game-link').value.trim();
+  console.log('Eingegebener Steam-Link:', gameLink); // Log für den eingegebenen Link
+
   const match = gameLink.match(/\/app\/(\d+)/); // Suche nach der Steam-App-ID im Link
-  
+  console.log('App-ID gefunden:', match); // Log für das extrahierte App-ID
+
   if (match) {
     const appId = match[1]; // Extrahiere die App-ID
-    const newGameDetails = await getGameDetails(appId);
+    console.log('Verarbeitete App-ID:', appId); // Log für die verarbeitete App-ID
     
+    const newGameDetails = await getGameDetails(appId);
     if (newGameDetails) {
+      console.log('Neues Spiel hinzugefügt:', newGameDetails); // Log für das hinzugefügte Spiel
       gameIds.push(appId); // Neue App-ID zur Liste der Spiele hinzufügen
       displayGames(); // Spiele neu laden
       
@@ -61,6 +74,7 @@ async function addGameByLink() {
       document.getElementById('game-link').value = ''; // Eingabefeld leeren
     }
   } else {
+    console.error('Ungültiger Steam-Link!'); // Fehler-Log für ungültigen Link
     alert('Ungültiger Steam-Link!');
   }
 }
@@ -78,3 +92,4 @@ document.getElementById('confirm-add').addEventListener('click', addGameByLink);
 
 // Spiele beim Laden der Seite anzeigen
 displayGames();
+
