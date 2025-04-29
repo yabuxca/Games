@@ -1,150 +1,58 @@
-/* Allgemeine Stile */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Grundlegende Stile */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212; /* Dunkler Hintergrund */
-    color: #fff; /* Weiße Schrift */
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1, h2, h3 {
-    color: #fff;
-}
-
-a {
-    color: #1E90FF;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Header */
 header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #1A1A1A;
+  text-align: center;
+  padding: 2rem;
+  background-color: #1e1e1e;
 }
 
-header .logo h1 {
-    font-size: 24px;
+h1 {
+  font-size: 2.5rem;
 }
 
-header nav ul {
-    list-style: none;
-    display: flex;
+p {
+  font-size: 1.2rem;
 }
 
-header nav ul li {
-    margin-left: 20px;
+.game-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 2rem;
 }
 
-/* Hero Section */
-.hero {
-    text-align: center;
-    background-color: #2C2C2C;
-    padding: 60px 20px;
+.game-item {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
 }
 
-.hero h2 {
-    font-size: 36px;
+.game-item h2 {
+  font-size: 1.8rem;
 }
 
-.hero p {
-    font-size: 18px;
+.play-link {
+  text-decoration: none;
+  color: #00bfae;
+  font-size: 1.1rem;
+  margin-top: 10px;
+  display: inline-block;
 }
 
-/* Spiele Showcase */
-.games-showcase {
-    display: flex;
-    justify-content: space-around;
-    padding: 40px 20px;
-    background-color: #1A1A1A;
-}
-
-.game {
-    width: 30%;
-    background-color: #333;
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-}
-
-.game img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.game h3 {
-    margin-top: 10px;
-    font-size: 24px;
-}
-
-.game p {
-    font-size: 16px;
-}
-
-.game a {
-    margin-top: 10px;
-    display: inline-block;
-    font-size: 16px;
-    padding: 10px 20px;
-    background-color: #1E90FF;
-    color: #fff;
-    border-radius: 5px;
-}
-
-/* Über uns */
-#about {
-    background-color: #2C2C2C;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-/* Kontakt */
-#contact {
-    padding: 40px 20px;
-    background-color: #1A1A1A;
-    text-align: center;
-}
-
-form {
-    display: grid;
-    gap: 15px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-form input, form textarea {
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-form button {
-    background-color: #1E90FF;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #0A74DA;
-}
-
-/* Footer */
 footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #1A1A1A;
+  margin-top: 2rem;
+  background-color: #1e1e1e;
+  padding: 1rem;
+  text-align: center;
 }
