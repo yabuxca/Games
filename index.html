@@ -11,11 +11,23 @@
       <div class="logo">
         <h1>Game Showcase</h1>
       </div>
+      <button id="add-game-btn" class="btn">Add Game</button>
     </header>
 
     <section id="games" class="game-list">
       <!-- Hier werden die Spiele dynamisch angezeigt -->
     </section>
+
+    <!-- Popup für das Hinzufügen eines Spiels -->
+    <div id="add-game-popup" class="popup">
+      <div class="popup-content">
+        <h2>Spiel hinzufügen</h2>
+        <label for="game-link">Steam-Link des Spiels:</label>
+        <input type="text" id="game-link" placeholder="Steam Link (z.B. https://store.steampowered.com/app/730)" />
+        <button id="confirm-add" class="btn">Add Game</button>
+        <button id="close-popup" class="btn">Abbrechen</button>
+      </div>
+    </div>
 
     <footer>
       <p>&copy; 2025 Game Showcase</p>
