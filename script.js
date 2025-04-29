@@ -80,3 +80,4 @@ async function addGameByLink() {
   console.log('App-ID gefunden:', match); // Log für das extrahierte App-ID
 
   if (match
+
