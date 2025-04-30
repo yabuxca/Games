@@ -9,22 +9,27 @@
 <body>
   <header>
     <h1>Game Showcase</h1>
-    <button id="add-game-btn">+ Add Game</button>
+    <button id="add-game-btn">Spiel hinzufügen</button>
   </header>
 
   <main>
-    <section id="games"></section>
+    <section id="games">
+      <!-- Hier werden die Spiele angezeigt -->
+    </section>
   </main>
 
+  <!-- Popup zum Hinzufügen eines Spiels -->
   <div id="add-game-popup" class="popup">
     <div class="popup-content">
       <span id="close-popup" class="close">&times;</span>
-      <h2>Steam-Link einfügen</h2>
-      <input type="text" id="game-link" placeholder="https://store.steampowered.com/app/12345/" />
-      <button id="confirm-add">Add Game</button>
+      <h2>Spiel hinzufügen</h2>
+      <input type="text" id="game-title" placeholder="Spiel Titel" />
+      <input type="text" id="game-image" placeholder="Bild URL" />
+      <input type="text" id="game-link" placeholder="Steam Link" />
+      <button id="confirm-add">Spiel hinzufügen</button>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
