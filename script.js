@@ -57,3 +57,4 @@ function closePopup() {
 
 // Initiale Anzeige der Spiele (falls vorhanden)
 displayGames();
+
